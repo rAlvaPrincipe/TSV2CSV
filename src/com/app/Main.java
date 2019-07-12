@@ -1,3 +1,4 @@
+package com.app;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.sql.SparkSession;
