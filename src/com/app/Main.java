@@ -9,15 +9,16 @@ public class Main {
 		SparkSession session = SparkSession.builder().appName("ABSTAT-spark").master(args[0]).getOrCreate();
 		String dataset_file = args[1];
 		String output_dir = args[2];
+		String separator = args[3];
 		
 		JavaRDD<String> input = session.read().textFile(dataset_file).javaRDD();
 
 		JavaRDD<String> csv = input.map(new Function<String, String>() {
 			public String call(String s) {
-				return s.replace("\t", ";");
+				return s.replace("\t", separator);
 			}});
 		
-		csv.saveAsTextFile(output_dir);
+		csv.coalesce(1).saveAsTextFile(output_dir);
 
 	}
 }
